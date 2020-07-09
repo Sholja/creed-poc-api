@@ -1,10 +1,11 @@
-const express = require(`express`);
-const controller = require(`./controller`);
+import express from 'express';
+import controller from './controller';
 
 const router = express.Router();
 
 router.get(`/health`, controller.healthCheck);
-router.get(`/youtube/account`, controller.getYouTubeAccount);
+router.get(`/youtube/account/:username`, controller.getYouTubeAccount);
 router.get(`/youtube/video/:video_id`, controller.getYouTubeVideo);
+router.get(`/tiktok/user/:username`, controller.getTikTokUserDetails);
 
-module.exports = router;
+export default router;

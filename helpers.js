@@ -1,5 +1,5 @@
-const axios = require(`axios`);
-const constants = require(`./constants`);
+import axios from 'axios';
+import constants from './constants';
 
 class Helpers {
   async makeYouTubeRequest(path, method, params = {}) {
@@ -18,5 +18,4 @@ class Helpers {
 }
 
 const helpers = new Helpers();
-
-module.exports = helpers;
+export default helpers;

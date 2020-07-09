@@ -1,4 +1,4 @@
-const services = require("./services");
+import services from './services';
 
 class Controller {
   async healthCheck(req, res) {
@@ -15,7 +15,7 @@ class Controller {
   async getYouTubeAccount(req, res) {
     try {
       const params = {
-        forUsername: req.query.username,
+        forUsername: req.params.username,
         part: `contentOwnerDetails, statistics, localizations, snippet, status`,
       };
 
@@ -41,10 +41,25 @@ class Controller {
       return res.status(200).json({
         data,
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log(`An error occurred `, error);
+      return error;
+    }
+  }
+
+  async getTikTokUserDetails(req, res) {
+    try {
+      const data = await services.getTikTokUserDetails();
+
+      return res.status(200).json({
+        data,
+      });
+    } catch (error) {
+      console.log(`An error occurred `, error);
+      return error;
+    }
   }
 }
 
 const controller = new Controller();
-
-module.exports = controller;
+export default controller;

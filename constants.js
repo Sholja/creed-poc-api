@@ -1,7 +1,19 @@
-const defaultConstants = {
+import dotenv from 'dotenv';
+import path from 'path';
+
+dotenv.config({
+  path: path.normalize(path.join(__dirname, `.env`))
+});
+
+
+const constants = {
   youTubeUrl: `https://www.googleapis.com/youtube/v3/`,
   googleApis: `https://www.googleapis.com/auth/`,
-  googleApiKey: `AIzaSyDZFdIwA3EDCTkJh9qEcnU_VdC1X61avQ8`,
+  googleApiKey: process.env.GOOGLE_API_KEY,
+  tikTokUsername: process.env.TIK_TOK_USERNAME,
+  tikTokPassword: process.env.TIK_TOK_PASSWORD,
 };
 
-module.exports = defaultConstants;
+console.log(process.env)
+
+export default constants;
