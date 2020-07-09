@@ -8,20 +8,40 @@ class Controller {
       });
     } catch (error) {
       console.log(`An error occurred `, error);
+      return error;
     }
   }
 
-  async getYouTubeChannels(req, res) {
+  async getYouTubeAccount(req, res) {
     try {
-      const params = req.query || {};
-      const channels = await services.getYouTubeChannels(params);
+      const params = {
+        forUsername: req.query.username,
+        part: `contentOwnerDetails, statistics, localizations, snippet, status`,
+      };
 
+      const data = await services.getYouTubeAccount(params);
       return res.status(200).json({
-        channels,
+        data,
       });
     } catch (error) {
       console.log(`An error occurred `, error);
+      return error;
     }
+  }
+
+  async getYouTubeVideo(req, res) {
+    try {
+      const params = {
+        id: req.params.video_id,
+        part: `statistics`,
+      };
+
+      const data = await services.getYouTubeVideo(params);
+
+      return res.status(200).json({
+        data,
+      });
+    } catch (error) {}
   }
 }
 

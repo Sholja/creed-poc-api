@@ -6,9 +6,12 @@ class Helpers {
     const requestObject = {
       method,
       url: `${constants.youTubeUrl}${path}`,
+      params: {
+        key: constants.googleApiKey,
+      },
     };
 
-    requestObject.params = params;
+    requestObject.params = Object.assign(requestObject.params, params);
 
     return axios(requestObject);
   }

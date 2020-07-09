@@ -1,4 +1,4 @@
-const express =  require(`express`);
+const express = require(`express`);
 const bodyParser = require(`body-parser`);
 const routes = require(`./routes`);
 
@@ -27,6 +27,15 @@ app.use(
 );
 
 app.use(`/`, routes);
+
+app.use((error, req, res, next) => {
+  res.status(error.status || 500).send({
+    error: {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    },
+  });
+});
 
 app.listen(port, () =>
   console.log(`POC API listening at http://localhost:${port}`)

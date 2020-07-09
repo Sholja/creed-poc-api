@@ -4,6 +4,7 @@ const controller = require(`./controller`);
 const router = express.Router();
 
 router.get(`/health`, controller.healthCheck);
-router.get(`/youtube/channels`, controller.getYouTubeChannels);
+router.get(`/youtube/account`, controller.getYouTubeAccount);
+router.get(`/youtube/video/:video_id`, controller.getYouTubeVideo);
 
 module.exports = router;
