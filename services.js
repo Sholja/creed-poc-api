@@ -1,6 +1,7 @@
-import TikTokAPI, { getRequestParams } from 'tiktok-api';
-import helpers from './helpers';
-import constants from './constants';
+import TikTokAPI, { getRequestParams } from "tiktok-api";
+import helpers from "./helpers";
+import constants from "./constants";
+import axios from "axios";
 
 class Services {
   async getYouTubeAccount(params) {
@@ -29,25 +30,26 @@ class Services {
       : {};
   }
 
-  async getTikTokUserDetails() {
-    const signURL = async (url, ts, deviceId) => {
-        const as = 'anti-spam parameter 1';
-        const cp = 'anti-spam parameter 2'
-        const mas = 'anti-spam parameter 3';
-        return `${url}&as=${as}&cp=${cp}&mas=${mas}`;
-      }
+  async getTwitchVideoStatistics(videoId) {
+    return axios({
+      method: "GET",
+      url: `https://api.twitch.tv/kraken/videos/${videoId}`,
+      headers: {
+        "client-id": constants.twitchApiKey,
+        accept: "application/vnd.twitchtv.v5+json",
+      },
+    });
+  }
 
-      const params = getRequestParams({
-        device_id: '<device_id>',
-        fp: '<device_fingerprint>',
-        iid: '<install_id>',
-        openudid: '<device_open_udid>',
-      });
-
-      const api = new TikTokAPI(params, { signURL });
-
-      const response = await api.loginWithUsername(constants.tikTokUsername, constants.tikTokPassword);
-      return response && response.data && response.data.data;
+  async getTwitchChannel(channelId) {
+    return axios({
+      method: "GET",
+      url: `https://api.twitch.tv/kraken/channels/${channelId}`,
+      headers: {
+        "client-id": constants.twitchApiKey,
+        accept: "application/vnd.twitchtv.v5+json",
+      },
+    });
   }
 }
 

@@ -62,12 +62,38 @@ class Controller {
     }
   }
 
-  async getPostData(req, res) {
+  async getTikTokPostData(req, res) {
     try {
       const data = await getVideoMeta(req.query.url, {});
 
       return res.status(200).json({
         data,
+      });
+    } catch (error) {
+      console.log(`An error occurred `, error);
+      return error;
+    }
+  }
+
+  async getTwitchVideoStatistics(req, res) {
+    try {
+      const response = await services.getTwitchVideoStatistics(req.params.video_id);
+
+      return res.status(200).json({
+        data: response && response.data,
+      });
+    } catch (error) {
+      console.log(`An error occurred `, error);
+      return error;
+    }
+  }
+
+  async getTwitchChannel(req, res) {
+    try {
+      const response = await services.getTwitchChannel(req.params.channel_id);
+
+      return res.status(200).json({
+        data: response && response.data,
       });
     } catch (error) {
       console.log(`An error occurred `, error);
