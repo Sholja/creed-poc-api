@@ -1,4 +1,6 @@
-import services from './services';
+import { getUserProfileInfo, getVideoMeta } from "tiktok-scraper";
+
+import services from "./services";
 
 class Controller {
   async healthCheck(req, res) {
@@ -49,7 +51,20 @@ class Controller {
 
   async getTikTokUserDetails(req, res) {
     try {
-      const data = await services.getTikTokUserDetails();
+      const data = await getUserProfileInfo(req.params.username, {});
+
+      return res.status(200).json({
+        data,
+      });
+    } catch (error) {
+      console.log(`An error occurred `, error);
+      return error;
+    }
+  }
+
+  async getPostData(req, res) {
+    try {
+      const data = await getVideoMeta(req.query.url, {});
 
       return res.status(200).json({
         data,
